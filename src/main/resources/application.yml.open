@@ -1,0 +1,60 @@
+server:
+#  port: 40010
+  contextPath: /hspc-reference-api
+
+spring:
+  jmx:
+    enabled: false
+  profiles:
+    active: local
+  resources:
+    chain:
+      enabled: true
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+
+# Platform Servers
+hspc:
+  platform:
+    api:
+      security:
+#        mode: secured
+        mode: open
+      oauth2:
+        clientId: hspc_resource_server
+        clientSecret: secret
+        scopes: openid,launch,smart/orchestrate_launch
+      fhir:
+        db:
+          driver: com.mysql.jdbc.Driver
+          url: jdbc:mysql://localhost:3306/hapi_pu?autoReconnect=true
+          username: root
+          password: password
+          persistenceUnitName: HAPI_PU
+        hibernate:
+          dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        terminologyEndpointURL: fhir2.healthintersections.com.au/open
+        federatedEndpointURL: dataphoria.org/datafhir
+    authorization:
+      url: http://localhost:8080/hspc-reference-authorization
+      authorizeUrl: ${hspc.platform.authorization.url}/authorize
+      tokenUrl: ${hspc.platform.authorization.url}/token
+      tokenCheckUrl: ${hspc.platform.authorization.url}/introspect
+      userinfoUrl: ${hspc.platform.authorization.url}/userinfo
+      smart:
+        launchUrl: ${hspc.platform.authorization.url}/Launch
+        registrationEndpointUrl: ${hspc.platform.authorization.url}/register
+        urisEndpointExtensionUrl: http://fhir-registry.smarthealthit.org/StructureDefinition/oauth-uris
+    messaging:
+      url: http://localhost:8080/hspc-reference-messaging
+      subscriptionSupport:
+        enabled: true
+        subscriptionEndpoint: ${hspc.platform.messaging.url}/subscription
+        resourceEndpoint: ${hspc.platform.messaging.url}/resource
+
+hibernate:
+  search:
+    default:
+      indexBase: /usr/local/lucenefiles/open-dstu2
