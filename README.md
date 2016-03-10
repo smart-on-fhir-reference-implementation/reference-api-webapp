@@ -23,7 +23,7 @@ A deployable web application that includes configuration of a FHIR server (refer
     For secured configuration, the reference-api server must register a client with the reference-authorization server.
     From MySQL
     mysql> use oic;
-    mysql> source {install path}/reference-api/reference-api-mysql/src/main/resources/db/openidconnect/mysql/resource-server-client.sql;
+    mysql> source {install path}/reference-api-mysql/src/main/resources/db/openidconnect/mysql/resource-server-client.sql;
     * note this script is included with the complete installation of the reference-impl (optional)
 
 ### Build and Run ###
@@ -43,7 +43,7 @@ A deployable web application that includes configuration of a FHIR server (refer
 * http://localhost:8080/hspc-reference-api/data/metadata
 
 ## Open Mode ##
-When the HSPC Reference API server is run in open mode, no security is applied.  This is very convenient for development, allowing resources to be read and written without authentication.  See reference-api/reference-api-webapp/src/main/resources/application.yml.
+When the HSPC Reference API server is run in open mode, no security is applied.  This is very convenient for development, allowing resources to be read and written without authentication.  See reference-api-webapp/src/main/resources/application.yml.
 * hsp.platform.api.security.mode=open
 
 ### Sample Operations ###
@@ -51,12 +51,12 @@ When the HSPC Reference API server is run in open mode, no security is applied. 
 * http://localhost:8080/hspc-reference-api/data/Observation
 
 ## Secured Mode ##
-When the HSPC Reference API server is run in secured mode, authentication is required for most endpoints with the exception of the conformance statement.  See reference-api/reference-api-webapp/src/main/resources/application.yml.
+When the HSPC Reference API server is run in secured mode, authentication is required for most endpoints with the exception of the conformance statement.  See reference-api-webapp/src/main/resources/application.yml.
 * hsp.platform.api.security.mode=secured
 
 ## Configuration ##
 
-See reference-api/reference-api-webapp/src/main/resources/application.yml for an initial listing of properties that may be overridden. 
+See reference-api-webapp/src/main/resources/application.yml for an initial listing of properties that may be overridden. 
 
 |Property | Default Value | Notes
 |---|---|---|
