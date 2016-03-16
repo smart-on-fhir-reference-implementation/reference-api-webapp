@@ -11,7 +11,6 @@ import ca.uhn.fhir.model.dstu2.resource.Bundle;
 import ca.uhn.fhir.narrative.DefaultThymeleafNarrativeGenerator;
 import ca.uhn.fhir.rest.server.*;
 import ca.uhn.fhir.rest.server.interceptor.IServerInterceptor;
-import org.hspconsortium.platform.api.fhir.HSPConformanceProviderDstu2;
 import org.hspconsortium.platform.api.fhir.repository.MetadataRepository;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -74,7 +73,7 @@ public class HapiFhirServlet extends RestfulServer {
 		 * is a nice addition.
 		 */
 		IFhirSystemDao<Bundle, MetaDt> systemDao = myAppCtx.getBean("mySystemDaoDstu2", IFhirSystemDao.class);
-		HSPConformanceProviderDstu2 confProvider = new HSPConformanceProviderDstu2(this, systemDao, myAppCtx.getBean(DaoConfig.class), metadataRepository);
+		HSPCConformanceProviderDstu2 confProvider = new HSPCConformanceProviderDstu2(this, systemDao, myAppCtx.getBean(DaoConfig.class), metadataRepository);
 
         confProvider.setImplementationDescription("HSPC FHIR Server");
         setServerConformanceProvider(confProvider);
