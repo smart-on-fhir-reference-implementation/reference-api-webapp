@@ -12,7 +12,7 @@ Welcome to the HSPC Reference API!  The HSPC Reference API server contains a FHI
 [reference-api-mysql](https://bitbucket.org/hspconsortium/reference-api-mysql) configures a MySQL FHIR resource repository to be used by the reference-api-fhir library.
 
 ## reference-api-fhir ##
-[reference-api-fhir](https://bitbucket.org/hspconsortium/reference-api-fhir) is an extension of [Hapi FHIR](http://jamesagnew.github.io/hapi-fhir/) that includes support for SMART launch.
+[reference-api-fhir](https://bitbucket.org/hspconsortium/reference-api-fhir) is an extension of [HAPI FHIR](http://jamesagnew.github.io/hapi-fhir/) that includes support for SMART launch.
 
 ## reference-api-webapp ##
 A deployable web application that includes configuration of a FHIR server (reference-api-fhir, reference-api-mysql) for OAuth2 (reference-api-oauth2) and SMART launch (reference-api-smart-support).  The reference-api-webapp may be used as an example for a custom HSPC FHIR Resource server.
