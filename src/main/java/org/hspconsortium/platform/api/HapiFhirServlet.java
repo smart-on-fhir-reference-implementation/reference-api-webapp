@@ -15,6 +15,7 @@ import org.hspconsortium.platform.api.fhir.repository.MetadataRepository;
 import org.springframework.web.context.WebApplicationContext;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Collection;
 import java.util.List;
 
@@ -26,16 +27,21 @@ public class HapiFhirServlet extends RestfulServer {
 
     private MetadataRepository metadataRepository;
 
-    public HapiFhirServlet(WebApplicationContext myAppCtx, MetadataRepository metadataRepository) {
-        super();
-        this.myAppCtx = myAppCtx;
-        this.metadataRepository = metadataRepository;
-    }
+	private String fhirMappingPath;
 
-    @SuppressWarnings("unchecked")
+	public HapiFhirServlet() {
+		super();
+	}
+
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void initialize() throws ServletException {
 		super.initialize();
+
+		// get the context holder values
+		myAppCtx = HapiFhirServletContextHolder.getInstance().getMyAppCtx();
+		metadataRepository = HapiFhirServletContextHolder.getInstance().getMetadataRepository();
+		fhirMappingPath = HapiFhirServletContextHolder.getInstance().getFhirMappingPath();
 
 		/* 
 		 * We want to support FHIR DSTU2 format. This means that the server
@@ -122,4 +128,62 @@ public class HapiFhirServlet extends RestfulServer {
 			this.registerInterceptor(interceptor);
 		}
 	}
+
+	/** account for tenant and mapping */
+	@Override
+	protected String getRequestPath(String requestFullPath, String servletContextPath, String servletPath) {
+
+		// trim off the servletContextPath
+		String remainder = requestFullPath.substring(escapedLength(servletContextPath));
+
+		if (remainder.length() > 0 && remainder.charAt(0) == '/') {
+			remainder = remainder.substring(1);
+		}
+
+		// followed by tenant and fhir mapping
+		String[] split = remainder.split("/", 3);
+
+		// capture the whole path after the fhir mapping
+		StringBuffer stringBuffer = new StringBuffer();
+		boolean foundFhirMappingPath = false;
+		for (String part : split) {
+			if (foundFhirMappingPath) {
+				stringBuffer.append(part);
+				stringBuffer.append("/");
+			}
+			if (fhirMappingPath.equals(part)) {
+				foundFhirMappingPath = true;
+			}
+		}
+
+		return stringBuffer.length() > 0
+				? stringBuffer.substring(0, stringBuffer.length() - 1)
+				: "";
+	}
+
+	/**
+	 * Returns the server base URL (with no trailing '/') for a given request
+	 */
+	@Override
+	public String getServerBaseForRequest(HttpServletRequest theRequest) {
+		String fhirServerBase = getServerAddressStrategy().determineServerBase(getServletContext(), theRequest);
+
+		String[] split = fhirServerBase.split("/");
+
+		StringBuffer result = new StringBuffer();
+		for (String current : split) {
+			result.append(current);
+
+			if (fhirMappingPath.equals(current)) {
+				// found the base for request
+				return result.toString();
+			}
+
+			// continue
+			result.append("/");
+		}
+
+		throw new RuntimeException("Something bad happened, only matched: " + result.toString());
+	}
+
 }
