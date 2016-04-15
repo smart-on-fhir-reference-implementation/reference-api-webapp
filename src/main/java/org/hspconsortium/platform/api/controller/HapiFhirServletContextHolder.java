@@ -1,4 +1,4 @@
-package org.hspconsortium.platform.api;
+package org.hspconsortium.platform.api.controller;
 
 import org.hspconsortium.platform.api.fhir.repository.MetadataRepository;
 import org.springframework.web.context.WebApplicationContext;

@@ -1,4 +1,4 @@
-package org.hspconsortium.platform.api;
+package org.hspconsortium.platform.api.controller;
 
 import ca.uhn.fhir.context.FhirContext;
 import ca.uhn.fhir.context.FhirVersionEnum;
@@ -11,6 +11,7 @@ import ca.uhn.fhir.model.dstu2.resource.Bundle;
 import ca.uhn.fhir.narrative.DefaultThymeleafNarrativeGenerator;
 import ca.uhn.fhir.rest.server.*;
 import ca.uhn.fhir.rest.server.interceptor.IServerInterceptor;
+import org.hspconsortium.platform.api.HSPCConformanceProviderDstu2;
 import org.hspconsortium.platform.api.fhir.repository.MetadataRepository;
 import org.springframework.web.context.WebApplicationContext;
 

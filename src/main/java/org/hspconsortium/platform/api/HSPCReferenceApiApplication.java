@@ -15,7 +15,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, /*securedEnabled = true, */proxyTargetClass = true)
 @Import({OAuth2ResourceConfig.class, MethodSecurityConfig.class})
-@ComponentScan({"org.hspconsortium.platform.api"})
+@ComponentScan
 public class HSPCReferenceApiApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {

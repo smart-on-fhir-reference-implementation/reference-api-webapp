@@ -1,9 +1,12 @@
-package org.hspconsortium.platform.api;
+package org.hspconsortium.platform.api.controller;
 
 import org.hspconsortium.platform.api.fhir.repository.MetadataRepository;
 import org.hspconsortium.platform.api.smart.LaunchOrchestrationEndpoint;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.mvc.ServletWrappingController;
 
@@ -12,8 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Properties;
 
 @RestController
-@RequestMapping("/{tenant}")
-public class MultitenantHapiFhirController extends ServletWrappingController {
+public class HapiFhirController extends ServletWrappingController {
 
     @Autowired
     private WebApplicationContext myAppCtx;
@@ -25,7 +27,7 @@ public class MultitenantHapiFhirController extends ServletWrappingController {
     private LaunchOrchestrationEndpoint launchOrchestrationEndpoint;
 
     @Autowired
-    public MultitenantHapiFhirController(WebApplicationContext myAppCtx, MetadataRepository metadataRepository) {
+    public HapiFhirController(WebApplicationContext myAppCtx, MetadataRepository metadataRepository) {
         setServletClass(HapiFhirServlet.class);
         setServletName("hapiFhirServlet");
         setSupportedMethods(
@@ -46,19 +48,8 @@ public class MultitenantHapiFhirController extends ServletWrappingController {
         super.setInitParameters(initParameters);
     }
 
-    @RequestMapping("/")
-    public String sayHello(@PathVariable("tenant") String tenant) {
-        return "Hello " + tenant;
-    }
-
-    @RequestMapping("/management")
-    public String management(@PathVariable("tenant") String tenant) {
-        return "Management for " + tenant;
-    }
-
     @RequestMapping(value = {"/data", "/data/**"})
-    public void handle(@PathVariable("tenant") String tenant, HttpServletRequest request, HttpServletResponse response)
-            throws Exception {
+    public void handleChild(HttpServletRequest request, HttpServletResponse response) throws Exception {
         this.handleRequest(request, response);
     }
 
