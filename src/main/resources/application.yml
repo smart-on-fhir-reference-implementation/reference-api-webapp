@@ -28,11 +28,11 @@ hspc:
         scopes: openid,launch,smart/orchestrate_launch
       fhir:
         db:
-          driver: com.mysql.jdbc.Driver
+          driver-class-name: com.mysql.jdbc.Driver
           url: jdbc:mysql://localhost:3306/hapi_pu?autoReconnect=true
           username: root
           password: password
-          persistenceUnitName: HAPI_PU
+          schema: HAPI_PU
         hibernate:
           dialect: org.hibernate.dialect.MySQL5InnoDBDialect
         terminologyEndpointURL: fhir2.healthintersections.com.au/open
