@@ -32,7 +32,7 @@ hspc:
           url: jdbc:mysql://localhost:3306/hapi_pu?autoReconnect=true
           username: root
           password: password
-          schema: HAPI_PU
+          schema: hapi_pu
         hibernate:
           dialect: org.hibernate.dialect.MySQL5InnoDBDialect
         terminologyEndpointURL: fhir2.healthintersections.com.au/open
