@@ -17,6 +17,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.7</java.version>
         <reference-api.version>0.10-SNAPSHOT</reference-api.version>
+        <reference-api.release.version>0.10</reference-api.release.version>
         <hapi.version>1.4</hapi.version>
         <hapi.hibernate.version>5.0.3.Final</hapi.hibernate.version>
         <hapi.hibernate.validator.version>5.2.2.Final</hapi.hibernate.validator.version>
@@ -36,28 +37,28 @@
         <dependency>
             <groupId>org.hspconsortium.reference</groupId>
             <artifactId>hspc-reference-api-fhir</artifactId>
-            <version>${reference-api.version}</version>
+            <version>${reference-api.release.version}</version>
         </dependency>
 
         <!-- Enable SMART extensions -->
         <dependency>
             <groupId>org.hspconsortium.reference</groupId>
             <artifactId>hspc-reference-api-smart-support</artifactId>
-            <version>${reference-api.version}</version>
+            <version>${reference-api.release.version}</version>
         </dependency>
 
         <!-- Enable MySQL implementation -->
         <dependency>
             <groupId>org.hspconsortium.reference</groupId>
             <artifactId>hspc-reference-api-mysql</artifactId>
-            <version>${reference-api.version}</version>
+            <version>${reference-api.release.version}</version>
         </dependency>
 
         <!-- Enable Oauth2 Support -->
         <dependency>
             <groupId>org.hspconsortium.reference</groupId>
             <artifactId>hspc-reference-api-oauth2</artifactId>
-            <version>${reference-api.version}</version>
+            <version>${reference-api.release.version}</version>
         </dependency>
 
         <dependency>
