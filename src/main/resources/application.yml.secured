@@ -29,7 +29,7 @@ hspc:
       fhir:
         db:
           driver-class-name: com.mysql.jdbc.Driver
-          url: jdbc:mysql://localhost:3306/hapi_pu?autoReconnect=true
+          url: jdbc:mysql://localhost:3306/hapi_pu
           username: root
           password: password
           schema: hapi_pu
