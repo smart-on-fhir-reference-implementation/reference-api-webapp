@@ -6,7 +6,7 @@ spring:
   jmx:
     enabled: false
   profiles:
-    active: local
+    active: singletenant
   resources:
     chain:
       enabled: true
@@ -37,6 +37,7 @@ hspc:
           dialect: org.hibernate.dialect.MySQL5InnoDBDialect
         terminologyEndpointURL: fhir2.healthintersections.com.au/open
         federatedEndpointURL: dataphoria.org/datafhir
+        contextPath: data
     authorization:
       url: http://localhost:8080/hspc-reference-authorization
       authorizeUrl: ${hspc.platform.authorization.url}/authorize
