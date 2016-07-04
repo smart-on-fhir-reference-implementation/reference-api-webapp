@@ -16,7 +16,7 @@ public class SandboxPersister {
 
     public static final String SANDBOX_SCHEMA_PREFIX = "hapi_";
 
-    public static final String INITIAL_DATASET_PATH = "db/prod_hapi_pu_04-18-16.sql";
+    public static final String INITIAL_DATASET_PATH = "db/hapi_pu_smart_dataset.sql";
 
     @Autowired
     private DatabaseManager databaseManager;
