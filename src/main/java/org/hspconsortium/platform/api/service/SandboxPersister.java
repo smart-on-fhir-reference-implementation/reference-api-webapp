@@ -16,8 +16,7 @@ public class SandboxPersister {
 
     public static final String SANDBOX_SCHEMA_PREFIX = "hapi_";
 
-    public static final String INITIAL_SCHEMA_PATH = "db/hapi_pu_schema.sql";
-    public static final String INITIAL_DATASET_PATH = "db/initial_dataset.sql";
+    public static final String INITIAL_SCHEMA_PATH = "db/hapi_pu_schema_initial_dataset.sql";
 
     @Autowired
     private DatabaseManager databaseManager;
@@ -43,9 +42,6 @@ public class SandboxPersister {
         try {
             ClassPathResource classPathResource = new ClassPathResource(INITIAL_SCHEMA_PATH);
             FileReader fileReader = new FileReader(classPathResource.getFile());
-            databaseManager.loadInitialDataset(toSchemaName(sandbox.getTeamId()), fileReader);
-            classPathResource = new ClassPathResource(INITIAL_DATASET_PATH);
-            fileReader = new FileReader(classPathResource.getFile());
             databaseManager.loadInitialDataset(toSchemaName(sandbox.getTeamId()), fileReader);
         } catch (IOException e) {
             throw new RuntimeException("Error creating initial dataset", e);
