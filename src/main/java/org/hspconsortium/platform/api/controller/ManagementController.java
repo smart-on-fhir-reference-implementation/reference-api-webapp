@@ -39,4 +39,9 @@ public class ManagementController {
         return found;
     }
 
+    @RequestMapping(value = "/sandbox/{teamId}", method = RequestMethod.DELETE)
+    public boolean delete(@PathVariable String teamId) {
+        return sandboxService.remove(teamId);
+    }
+
 }

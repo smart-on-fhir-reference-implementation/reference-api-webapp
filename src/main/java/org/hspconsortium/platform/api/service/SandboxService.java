@@ -45,4 +45,11 @@ public class SandboxService {
         return found != null ? found : Sandbox.UNKNOWN;
     }
 
+    public boolean remove(String teamId) {
+        boolean status = sandboxPersister.removeSandbox(teamId);
+        if ( sandboxes.containsKey(teamId)) {
+            sandboxes.remove(teamId);
+        }
+        return status;
+    }
 }

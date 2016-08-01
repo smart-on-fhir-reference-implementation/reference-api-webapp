@@ -58,4 +58,7 @@ public class SandboxPersister {
         return schemaName.substring(SANDBOX_SCHEMA_PREFIX.length());
     }
 
+    public boolean removeSandbox(String teamId) {
+         return databaseManager.dropSchema(toSchemaName(teamId));
+    }
 }
