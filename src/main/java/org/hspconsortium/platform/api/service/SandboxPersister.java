@@ -3,6 +3,7 @@ package org.hspconsortium.platform.api.service;
 import org.hspconsortium.platform.api.fhir.DatabaseManager;
 import org.hspconsortium.platform.api.model.Sandbox;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
@@ -22,13 +23,13 @@ public class SandboxPersister {
     private DatabaseManager databaseManager;
 
     public Collection<Sandbox> getSandboxes() {
-        Collection<String> schemas = databaseManager.getSchemas();
+        Collection<String> schemas = databaseManager.getSchemas(SANDBOX_SCHEMA_PREFIX);
 
         Collection<Sandbox> results = new ArrayList<>();
         for (String schema : schemas) {
-            if (schema.startsWith(SANDBOX_SCHEMA_PREFIX)) {
-                results.add(new Sandbox(toTeamId(schema)));
-            }
+//            if (schema.startsWith(SANDBOX_SCHEMA_PREFIX)) {
+            results.add(new Sandbox(toTeamId(schema)));
+//            }
         }
 
         return results;
@@ -58,7 +59,8 @@ public class SandboxPersister {
         return schemaName.substring(SANDBOX_SCHEMA_PREFIX.length());
     }
 
+    @CacheEvict(cacheNames = "dataSource", key = "#teamId")
     public boolean removeSandbox(String teamId) {
-         return databaseManager.dropSchema(toSchemaName(teamId));
+        return databaseManager.dropSchema(toSchemaName(teamId));
     }
 }
