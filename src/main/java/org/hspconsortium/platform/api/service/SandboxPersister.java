@@ -27,9 +27,7 @@ public class SandboxPersister {
 
         Collection<Sandbox> results = new ArrayList<>();
         for (String schema : schemas) {
-//            if (schema.startsWith(SANDBOX_SCHEMA_PREFIX)) {
             results.add(new Sandbox(toTeamId(schema)));
-//            }
         }
 
         return results;
